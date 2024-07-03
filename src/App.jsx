@@ -32,7 +32,7 @@ function App() {
             <li><Link to="/projects" className={linkClass}>[Projects](#projects)</Link></li>
             <li><Link to="/skills" className={linkClass}>[Skills](#skills)</Link></li>
             <li><Link to="/education" className={linkClass}>[Education](#education)</Link></li>
-            <li><Link to="/blogs" className={linkClass}>[Blogs](#blogs)</Link></li>
+            {/* <li><Link to="/blogs" className={linkClass}>[Blogs](#blogs)</Link></li> */}
             <li><Link to="/contact" className={linkClass}>[Contact](#contact)</Link></li>
           </ul>
         </nav>
@@ -42,7 +42,7 @@ function App() {
           <Route path="/projects" element={<Projects isMarkdownTheme={isMarkdownTheme} />} />
           <Route path="/skills" element={<Skills isMarkdownTheme={isMarkdownTheme} />} />
           <Route path="/education" element={<Education isMarkdownTheme={isMarkdownTheme} />} />
-          <Route path="/blogs" element={<Blogs isMarkdownTheme={isMarkdownTheme} />} />
+          {/* <Route path="/blogs" element={<Blogs isMarkdownTheme={isMarkdownTheme} />} /> */}
           <Route path="/contact" element={<Contact isMarkdownTheme={isMarkdownTheme} />} />
         </Routes>
       </div>
@@ -157,78 +157,78 @@ function Education({ isMarkdownTheme }) {
   );
 }
 
-function Blogs({ isMarkdownTheme }) {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// function Blogs({ isMarkdownTheme }) {
+//   const [blogs, setBlogs] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
 
-  const headingClass = isMarkdownTheme
-    ? "text-2xl md:text-3xl font-bold mb-4 text-green-400"
-    : "text-2xl md:text-3xl font-bold mb-4 text-blue-600";
+//   const headingClass = isMarkdownTheme
+//     ? "text-2xl md:text-3xl font-bold mb-4 text-green-400"
+//     : "text-2xl md:text-3xl font-bold mb-4 text-blue-600";
 
-  const linkClass = isMarkdownTheme
-    ? "text-blue-400 hover:underline"
-    : "text-blue-600 hover:underline";
+//   const linkClass = isMarkdownTheme
+//     ? "text-blue-400 hover:underline"
+//     : "text-blue-600 hover:underline";
 
-  useEffect(() => {
-    fetch('https://api.hashnode.com', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: `
-          {
-            user(username: "huamanraj") {
-              publication {
-                posts(page: 1) {
-                  title
-                  brief
-                  slug
-                  dateAdded
-                }
-              }
-            }
-          }
-        `
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      setBlogs(data.data.user.publication.posts);
-      setLoading(false);
-    })
-    .catch(err => {
-      setError('Failed to fetch blogs');
-      setLoading(false);
-    });
-  }, []);
+//   useEffect(() => {
+//     fetch('https://api.hashnode.com', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         query: `
+//           {
+//             user(username: "huamanraj") {
+//               publication {
+//                 posts(page: 1) {
+//                   title
+//                   brief
+//                   slug
+//                   dateAdded
+//                 }
+//               }
+//             }
+//           }
+//         `
+//       }),
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//       setBlogs(data.data.user.publication.posts);
+//       setLoading(false);
+//     })
+//     .catch(err => {
+//       setError('Failed to fetch blogs');
+//       setLoading(false);
+//     });
+//   }, []);
 
-  if (loading) return <p>Loading blogs...</p>;
-  if (error) return <p>{error}</p>;
+//   if (loading) return <p>Loading blogs...</p>;
+//   if (error) return <p>{error}</p>;
 
-  return (
-    <div>
-      <h2 className={headingClass}>{isMarkdownTheme ? "# " : ""}Blogs</h2>
-      <ul className="space-y-4">
-        {blogs.map((blog, index) => (
-          <li key={index} className="mb-4">
-            <h3 className="text-xl font-semibold">
-              {isMarkdownTheme ? "## " : ""}
-              <a href={`https://huamanraj.hashnode.dev/${blog.slug}`} className={linkClass} target="_blank" rel="noopener noreferrer">
-                {blog.title}
-              </a>
-            </h3>
-            <p className="text-sm md:text-base mt-2">{blog.brief}</p>
-            <p className="text-xs mt-1 text-gray-500">
-              Published on: {new Date(blog.dateAdded).toLocaleDateString()}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h2 className={headingClass}>{isMarkdownTheme ? "# " : ""}Blogs</h2>
+//       <ul className="space-y-4">
+//         {blogs.map((blog, index) => (
+//           <li key={index} className="mb-4">
+//             <h3 className="text-xl font-semibold">
+//               {isMarkdownTheme ? "## " : ""}
+//               <a href={`https://huamanraj.hashnode.dev/${blog.slug}`} className={linkClass} target="_blank" rel="noopener noreferrer">
+//                 {blog.title}
+//               </a>
+//             </h3>
+//             <p className="text-sm md:text-base mt-2">{blog.brief}</p>
+//             <p className="text-xs mt-1 text-gray-500">
+//               Published on: {new Date(blog.dateAdded).toLocaleDateString()}
+//             </p>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
 
 function Contact({ isMarkdownTheme }) {
   const headingClass = isMarkdownTheme
